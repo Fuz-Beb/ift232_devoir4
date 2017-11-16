@@ -9,15 +9,36 @@ import banalytics.log.PlaySegment;
 
 public class VideoAd extends Advertisement{
 
-	public VideoAd(String p) {
+    private long position;
+    private long duree;
+    
+	public VideoAd(String p, long pos, long duree) {
 		super(p);
-		// TODO Auto-generated constructor stub
+		this.position = pos;
+		this.duree = duree;
 	}
 
 	@Override
 	public void verifySegment(PlaySegment segment) {
-		// TODO Auto-generated method stub
-		
+        if(segment.includes(new PlaySegment(position,position + duree))){
+            viewCount++;
+        }   
 	}
+
+    /**
+     * @return the position
+     */
+    public long getPosition()
+    {
+        return position;
+    }
+
+    /**
+     * @return the duree
+     */
+    public long getDuree()
+    {
+        return duree;
+    }
 
 }

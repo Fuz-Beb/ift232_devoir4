@@ -43,6 +43,17 @@ public class AdGenerator {
 		return new BannerAd(product, media.getDuration() / 2);
 
 	}
+	
+    /*
+     * G�n�re une annonce qui est une banni�re superpos�e au contenu. La
+     * banni�re appara�tra au milieu de la lecture du contenu.
+     */
+    public Advertisement generateVideoAd(Media media) {
+
+        String product = products.get(rgen.nextInt(products.size()));
+        return new VideoAd(product, media.getDuration() / 2, media.getDuration() / 4);
+
+    }
 
 	/*
 	 * Formule de conversion de vues de la publicit� en revenus pour le
