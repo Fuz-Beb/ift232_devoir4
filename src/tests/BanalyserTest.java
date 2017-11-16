@@ -65,7 +65,7 @@ public class BanalyserTest {
 	}
 	
 	/*
-	 * Nouveau test: vérifie les revenus obtenus des annonces
+	 * Nouveau test: vï¿½rifie les revenus obtenus des annonces
 	 */
 	
 	@Test
@@ -139,7 +139,7 @@ public class BanalyserTest {
 
 	}
 
-	/* Séquence qui ne cause pas d'exception. provient du test original */
+	/* Sï¿½quence qui ne cause pas d'exception. provient du test original */
 
 	@Test
 	public void testMusicSequence() {
@@ -154,7 +154,7 @@ public class BanalyserTest {
 
 	}
 
-	/* Séquence qui ne cause pas d'exception. provient du test original */
+	/* Sï¿½quence qui ne cause pas d'exception. provient du test original */
 	@Test
 	public void testVideoSequence() {
 
@@ -165,7 +165,5 @@ public class BanalyserTest {
 		videoAnalyser.resume(105000);
 		videoAnalyser.move(160000,570000);		
 		videoAnalyser.stop(900000);
-	}
-
-	
+	}	
 }

@@ -2,22 +2,22 @@ package banalytics.advertisement;
 
 import banalytics.log.PlaySegment;
 /*
- * Type d'annonce qui apparaît comme une bannière superposée au contenu.
- * L'utilisateur peut la faire disparaître en cliquant dessus.
+ * Type d'annonce qui apparaï¿½t comme une banniï¿½re superposï¿½e au contenu.
+ * L'utilisateur peut la faire disparaï¿½tre en cliquant dessus.
  */
 
 public class BannerAd extends Advertisement{
 
 	private long position;
 	
-	public BannerAd(String p,AdGenerator g,long pos) {
-		super(p,g);
+	public BannerAd(String p,long pos) {
+		super(p);
 		position=pos;
 	}
 	
 	/*
-	 * On considère que l'annonce est vue si un segment de lecture est passé
-	 * au moment où elle doit apparaître (visonnement instantané).
+	 * On considï¿½re que l'annonce est vue si un segment de lecture est passï¿½
+	 * au moment oï¿½ elle doit apparaï¿½tre (visonnement instantanï¿½).
 	 */
 	@Override
 	public void verifySegment(PlaySegment segment) {

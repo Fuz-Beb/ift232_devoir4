@@ -3,14 +3,14 @@ package banalytics.advertisement;
 import banalytics.log.PlaySegment;
 
 /*
- * Type d'annonce représentant un vidéo incrusté dans le contenu.
- * TP3: À COMPLÉTER
+ * Type d'annonce reprï¿½sentant un vidï¿½o incrustï¿½ dans le contenu.
+ * TP3: ï¿½ COMPLï¿½TER
  */
 
 public class VideoAd extends Advertisement{
 
-	public VideoAd(String p,AdGenerator g) {
-		super(p,g);
+	public VideoAd(String p) {
+		super(p);
 		// TODO Auto-generated constructor stub
 	}
 

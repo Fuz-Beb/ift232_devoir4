@@ -6,14 +6,16 @@ import java.util.Random;
 import banalytics.media.Media;
 
 /*
- * Générateur d'annonces. Représente la compagnie qui achète de l'espace publicitaire. 
- * Choisit présentement un produit au hasard dans une simple liste.
- * Ce générateur d'annonces produit toujours le même montant d'argent par vue.
+ * Gï¿½nï¿½rateur d'annonces. Reprï¿½sente la compagnie qui achï¿½te de l'espace publicitaire. 
+ * Choisit prï¿½sentement un produit au hasard dans une simple liste.
+ * Ce gï¿½nï¿½rateur d'annonces produit toujours le mï¿½me montant d'argent par vue.
  */
 
 public class AdGenerator {
 
 	private ArrayList<String> products;
+	private static AdGenerator INSTANCE = null;
+
 
 	private static final double VIEWVALUE = 0.00003;
 	private Random rgen;
@@ -32,20 +34,20 @@ public class AdGenerator {
 	}
 
 	/*
-	 * Génère une annonce qui est une bannière superposée au contenu. La
-	 * bannière apparaîtra au milieu de la lecture du contenu.
+	 * Gï¿½nï¿½re une annonce qui est une banniï¿½re superposï¿½e au contenu. La
+	 * banniï¿½re apparaï¿½tra au milieu de la lecture du contenu.
 	 */
 	public Advertisement generateBannerAd(Media media) {
 
 		String product = products.get(rgen.nextInt(products.size()));
-		return new BannerAd(product, this, media.getDuration() / 2);
+		return new BannerAd(product, media.getDuration() / 2);
 
 	}
 
 	/*
-	 * Formule de conversion de vues de la publicité en revenus pour le
-	 * propriétaire du contenu. Applicable à toutes les publicités générées par
-	 * ce générateur.
+	 * Formule de conversion de vues de la publicitï¿½ en revenus pour le
+	 * propriï¿½taire du contenu. Applicable ï¿½ toutes les publicitï¿½s gï¿½nï¿½rï¿½es par
+	 * ce gï¿½nï¿½rateur.
 	 */
 	public double viewsToDollars(int views) {
 
@@ -53,4 +55,10 @@ public class AdGenerator {
 
 	}
 
+	public static synchronized AdGenerator getInstance() {
+        if (INSTANCE== null) {
+            INSTANCE= new AdGenerator();
+        }
+        return INSTANCE;
+    }
 }
