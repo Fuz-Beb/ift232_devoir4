@@ -22,7 +22,6 @@ public class BanalyserTest {
 	private Media music1;
 	private Media video1;
 
-	private AdGenerator generator;
 	private Banalyser musicAnalyser;
 	private Banalyser videoAnalyser;
 
@@ -32,11 +31,10 @@ public class BanalyserTest {
 	@Before
 	public void setup() {
 
-		generator = new AdGenerator();
 		music1 = new Music("The Space Explorers", "Big Falcon Rocket", 180000);
 		video1 = new Video("ESA Channel", "The Beagle hasn't landed", 953000);
-		musicAnalyser = new Banalyser(music1,generator.generateBannerAd(music1));
-		videoAnalyser = new Banalyser(video1,generator.generateBannerAd(video1));
+		musicAnalyser = new Banalyser(music1,AdGenerator.getInstance().generateBannerAd(music1));
+		videoAnalyser = new Banalyser(video1,AdGenerator.getInstance().generateBannerAd(video1));
 		
 
 		sample1 = new MusicLog();
@@ -73,23 +71,23 @@ public class BanalyserTest {
 		
 		musicAnalyser.start(0);
 		musicAnalyser.stop(180000);
-		assertEquals(musicAnalyser.getAdRevenue(),generator.viewsToDollars(1),0.000000001);	
+		assertEquals(musicAnalyser.getAdRevenue(),AdGenerator.getInstance().viewsToDollars(1),0.000000001);	
 		musicAnalyser.start(160000);
 		musicAnalyser.stop(180000);
-		assertEquals(musicAnalyser.getAdRevenue(),generator.viewsToDollars(1),0.000000001);
+		assertEquals(musicAnalyser.getAdRevenue(),AdGenerator.getInstance().viewsToDollars(1),0.000000001);
 		musicAnalyser.start(50000);
 		musicAnalyser.stop(160000);
-		assertEquals(musicAnalyser.getAdRevenue(),generator.viewsToDollars(2),0.000000001);	
+		assertEquals(musicAnalyser.getAdRevenue(),AdGenerator.getInstance().viewsToDollars(2),0.000000001);	
 	}
 	
 
 	@Test
 	public void testEquals() {
 
-		Banalyser exp1 = new Banalyser(music1,generator.generateBannerAd(music1));
-		Banalyser exp2 = new Banalyser(video1,generator.generateBannerAd(video1));
-		Banalyser exp3 = new Banalyser(music1, sample1, BanalyserState.STOPPED,generator.generateBannerAd(music1));
-		Banalyser exp4 = new Banalyser(video1, sample2, BanalyserState.STOPPED,generator.generateBannerAd(video1));
+		Banalyser exp1 = new Banalyser(music1,AdGenerator.getInstance().generateBannerAd(music1));
+		Banalyser exp2 = new Banalyser(video1,AdGenerator.getInstance().generateBannerAd(video1));
+		Banalyser exp3 = new Banalyser(music1, sample1, BanalyserState.STOPPED,AdGenerator.getInstance().generateBannerAd(music1));
+		Banalyser exp4 = new Banalyser(video1, sample2, BanalyserState.STOPPED,AdGenerator.getInstance().generateBannerAd(video1));
 
 		assertNotEquals(exp1, exp2);
 

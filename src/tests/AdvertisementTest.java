@@ -17,15 +17,13 @@ public class AdvertisementTest {
 	private Video video1;
 	private Advertisement ad1;
 	private Advertisement ad2;
-	private AdGenerator gen;
 	
 	@Before
 	public void setup(){		
-		gen=new AdGenerator();
 		music1 = new Music("The Space Explorers", "Big Falcon Rocket", 180000);
 		video1 = new Video("ESA Channel", "The Beagle hasn't landed", 953000);
-		ad1=gen.generateBannerAd(music1);
-		ad2=gen.generateBannerAd(video1);
+		ad1=AdGenerator.getInstance().generateBannerAd(music1);
+		ad2=AdGenerator.getInstance().generateBannerAd(video1);
 	}
 	
 	@Test
