@@ -2,9 +2,10 @@ package browser;
 
 
 /*
- * Interface pour les objets bidon servant à tester le détecteur d'Adblock
+ * Interface pour les objets bidon servant ï¿½ tester le dï¿½tecteur d'Adblock
  */
 public interface Browser {
 
 	public boolean isAdBlocked();
+	public boolean isLooking();
 }
