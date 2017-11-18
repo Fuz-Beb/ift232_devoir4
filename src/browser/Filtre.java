@@ -1,12 +1,5 @@
-/**
- * 
- */
 package browser;
 
-/**
- * @author Bebo
- *
- */
 public class Filtre implements Browser
 {
     private boolean adblock;

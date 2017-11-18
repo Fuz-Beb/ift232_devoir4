@@ -6,10 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import banalytics.advertisement.AdGenerator;
-import banalytics.advertisement.Advertisement;
 import banalytics.advertisement.VideoAd;
 import banalytics.log.PlaySegment;
-import banalytics.media.Music;
 import banalytics.media.Video;
 
 public class AdvertisementVideoTest

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import banalytics.Banalyser;
 import banalytics.advertisement.AdGenerator;
-import banalytics.log.MediaLog;
 import banalytics.media.Media;
 import banalytics.media.Music;
 import banalytics.media.Video;

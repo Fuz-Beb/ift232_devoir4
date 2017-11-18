@@ -1,6 +1,5 @@
 package browser;
 
-
 /*
  * Interface pour les objets bidon servant � tester le d�tecteur d'Adblock
  */
