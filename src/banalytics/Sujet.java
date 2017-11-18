@@ -20,6 +20,7 @@ public abstract class Sujet
     public Sujet()
     {
         list = new ArrayList<Advertisement>();
+        browserList = new ArrayList<Browser>();
     }
 
     /**
@@ -51,22 +52,15 @@ public abstract class Sujet
     public void notifyObs(PlaySegment playSegment)
     {
         for (Advertisement o : list)
-        {
+        {            
             if(browserList.isEmpty())
-                try
+                o.update(playSegment);
+            else
+                for(Browser b : browserList)
                 {
-                    throw new Exception("Erreur - Pas de browser !");
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            
-            for(Browser b : browserList)
-            {
-                if(!b.isAdBlocked() & b.isLooking())
-                    o.update(playSegment);
-            }               
+                    if(!b.isAdBlocked() & b.isLooking())
+                        o.update(playSegment);
+                }               
         }
     }
 
