@@ -5,109 +5,133 @@ import banalytics.log.MediaLog;
 import banalytics.media.Media;
 import banalytics.state.BanalyserState;
 
-/*
- * Classe qui sert à journaliser les événements qui surviennent durant l'utilisation d'un contenu
- * multimédia par un utilisateur. Une fois les événements correctement journalisés, il deviendra
- * possible d'analyser le comportement de l'utilisateur et d'en tirer des statistiques d'utilisation. 
+/**
+ * Classe qui sert ï¿½ journaliser les ï¿½vï¿½nements qui surviennent durant
+ * l'utilisation d'un contenu multimï¿½dia par un utilisateur. Une fois les
+ * ï¿½vï¿½nements correctement journalisï¿½s, il deviendra possible d'analyser le
+ * comportement de l'utilisateur et d'en tirer des statistiques d'utilisation.
  * 
  */
+public class Banalyser extends Sujet
+{
+    private Media media;
+    private MediaLog log;
+    private BanalyserState state;
 
-public class Banalyser {
+    public Banalyser(Media m, Advertisement ad)
+    {
+        this.init(m, m.createLog(), BanalyserState.INITIAL, ad);
+    }
 
-	private Media media;
+    public Banalyser(Media med, MediaLog l, BanalyserState st, Advertisement ad)
+    {
+        this.init(med, l, st, ad);
+    }
 
-	private MediaLog log;
+    private final void init(Media med, MediaLog l, BanalyserState st, Advertisement ad)
+    {
+        media = med;
+        log = l;
+        state = st;
 
-	private BanalyserState state;
-	
-	
-	/*
-	 * TP3
-	 * Nouvelle variable: annonce présentement affixée au media
-	 */
-	private Advertisement advert;
-	
+        attach(ad);
+    }
 
-	public Banalyser(Media m,Advertisement ad) {
-		
-		this.init(m,m.createLog(),BanalyserState.INITIAL,ad);
-	}
+    /**
+     * Retourne le cumul des revenues (de chaque annonce)
+     * 
+     * @return double
+     */
+    public double getAdRevenue()
+    {
+        double result = 0.0;
 
-	public Banalyser(Media med, MediaLog l, BanalyserState st,Advertisement ad) {
-		this.init(med,l,st,ad);		
-	}
-	
-	private final void init (Media med, MediaLog l, BanalyserState st,Advertisement ad){
-		media=med;
-		log=l;
-		state=st;
-		
-		//TP3: Obtention d'une annonce
-		advert=ad;
-	}
-	
-	public double getAdRevenue(){
-		return advert.monetize();
-	}
-	
+        for (Advertisement ad : list)
+        {
+            result += ad.monetize();
+        }
+        return result;
+    }
 
-	public String getTextLog() {
+    /**
+     * Retourne le revenue d'une seul annonce
+     * 
+     * @param ad
+     * @return
+     */
+    public double getAdRevenueOneAd(Advertisement ad)
+    {
+        return ad.monetize();
+    }
 
-		String res = "" + media;
-		res += "\n" + log + "\n";
-		return res;
+    public String getTextLog()
+    {
 
-	}
+        String res = "" + media;
+        res += "\n" + log + "\n";
+        return res;
 
-	public void start(long position) {
+    }
 
-		state = state.start(log, position);
-	}
+    public void start(long position)
+    {
 
-	public void stop(long position) {
+        state = state.start(log, position);
+    }
 
-		state = state.stop(log, position);
-		advert.verifySegment(log.getLastSegment());
-	}
+    public void stop(long position)
+    {
 
-	public void pause(long position) {
+        state = state.stop(log, position);
 
-		state = state.pause(log, position);
-		advert.verifySegment(log.getLastSegment());
-	}
+        // Notifie l'ensemble des annonces due au nouveau segment de lecture
+        notifyObs(log.getLastSegment());
+    }
 
-	public void resume(long time) {
+    public void pause(long position)
+    {
 
-		state = state.resume(log, time);
-	}
+        state = state.pause(log, position);
 
-	public void move(long source,long destination) {
+        // Notifie l'ensemble des annonces due au nouveau segment de lecture
+        notifyObs(log.getLastSegment());
+    }
 
-		state = state.move(log, source,destination);
-	}
+    public void resume(long time)
+    {
 
-	public void buffer(long position) {
+        state = state.resume(log, time);
+    }
 
-		state = state.buffer(log, position);
-	}
+    public void move(long source, long destination)
+    {
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Banalyser))
-			return false;
-		Banalyser other = (Banalyser) obj;
-		if (state != other.state)
-			return false;
-		if (!log.equals(other.log))
-			return false;
-		if (!media.equals(other.media))
-			return false;
+        state = state.move(log, source, destination);
+    }
 
-		return true;
-	}
+    public void buffer(long position)
+    {
 
+        state = state.buffer(log, position);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Banalyser))
+            return false;
+        Banalyser other = (Banalyser) obj;
+        if (state != other.state)
+            return false;
+        if (!log.equals(other.log))
+            return false;
+        if (!media.equals(other.media))
+            return false;
+
+        return true;
+    }
 }
