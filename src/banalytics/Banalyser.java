@@ -46,7 +46,7 @@ public class Banalyser extends Sujet
     {
         double result = 0.0;
 
-        for (Advertisement ad : list)
+        for (Advertisement ad : getList())
         {
             result += ad.monetize();
         }
